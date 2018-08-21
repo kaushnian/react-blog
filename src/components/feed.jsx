@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import Post from './post';
-import { fetchPosts } from '../actions/postActions';
 import config from '../config';
+import Post from './post';
 
 class Feed extends Component {
   constructor(props) {
@@ -16,8 +13,6 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    /* this.props.fetchPosts(); */
-
     const maxPosts = 20;
 
     fetch(`${config.apiHost}/posts`)
@@ -41,19 +36,5 @@ class Feed extends Component {
     );
   }
 }
-
-/* Feed.propTypes = {
-  fetchPosts: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-  posts: state.posts.items
-});
-
-export default connect(
-  mapStateToProps,
-  { fetchPosts }
-)(Feed); */
 
 export default Feed;
