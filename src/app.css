@@ -30,7 +30,7 @@
   margin: 0 16px 0 0;
 }
 
-.post-button-delete {
+.post-button-danger {
   background-color: #fcc7c9;
   border-color: #efa0a6;
 }
@@ -40,6 +40,21 @@
   background-color: #d1efd2;
   border-color: #a9dcba;
 }
+
+.post-edit-form {}
+
+.post-edit-form-title,
+.post-edit-form-body {
+  display: block;
+  width: 100%;
+  margin: 0 0 8px;
+}
+
+.post-edit-form-title {
+  text-transform: uppercase;
+}
+
+.post-edit-form {}
 
 .comment-box {
   padding: 8px;

@@ -1,7 +1,7 @@
-import { FETCH_POSTS, EDIT_POST } from "./types";
+import { FETCH_POSTS, EDIT_POST } from './types';
 
 export const fetchPosts = () => dispatch => {
-  fetch("https://jsonplaceholder.typicode.com/posts")
+  fetch('https://jsonplaceholder.typicode.com/posts')
     .then(res => res.json())
     .then(posts =>
       dispatch({

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Provider } from "react-redux";
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 
-import "./app.css";
-import Feed from "./components/feed";
-import store from "./store";
+import './app.css';
+import Feed from './components/feed';
+import store from './store';
 
 class App extends Component {
   render() {
