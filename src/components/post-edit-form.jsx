@@ -1,29 +1,33 @@
 import React from 'react';
 
-const PostEditForm = ({ post, onSubmit }) => {
+const PostEditForm = props => {
   return (
-    <form onSubmit={onSubmit} className="post-edit-form">
+    <form onSubmit={props.onSubmit}>
       <input
         type="text"
         name="title"
         className="post-edit-form-title"
-        value={post.title}
-        onChange={this.onChange}
+        value={props.post.title}
+        onChange={props.onChange}
       />
       <textarea
         name="body"
         cols="30"
         rows="10"
         className="post-edit-form-body"
-        value={post.body}
-        onChange={this.onChange}
+        value={props.post.body}
+        onChange={props.onChange}
       />
       <div className="post-controls">
-        <button className="post-button" type="submit">
+        <button
+          disabled={props.isButtonSaveDisabled}
+          className="post-button"
+          type="submit"
+        >
           Save
         </button>
         <button
-          onClick={this.onCancel}
+          onClick={props.onCancel}
           className="post-button post-button-danger"
         >
           Cancel

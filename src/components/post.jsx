@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import config from '../config';
 import Comments from './comments';
 import PostContent from './post-content';
 import PostEditForm from './post-edit-form';
@@ -11,33 +13,38 @@ class Post extends Component {
       showComments: false,
       editMode: false,
       post: this.props.post,
-      commentsButtonText: ''
+      commentsButtonText: '',
+      isButtonDeleteDisabled: false,
+      isButtonSaveDisabled: false,
+      isButtonCommentsDisabled: false
     };
 
     this.currentPost = { ...this.state.post };
   }
 
   componentDidMount = () => {
-    this.uptateCommentsButton();
+    this.updateCommentsButton();
   };
 
   toggleComments = () => {
     const showComments = this.state.showComments;
 
     this.setState(prevState => ({
-      showComments: !prevState.showComments
+      showComments: !prevState.showComments,
+      isButtonCommentsDisabled: true
     }));
 
     // Update comments button text only when closing the comments section.
-    showComments && this.uptateCommentsButton();
+    showComments && this.updateCommentsButton();
   };
 
-  uptateCommentsButton = () => {
+  updateCommentsButton = () => {
     this.setState(prevState => {
       const text = prevState.showComments ? 'Hide' : 'Show';
 
       return {
-        commentsButtonText: text + ' Comments'
+        commentsButtonText: text + ' Comments',
+        isButtonCommentsDisabled: false
       };
     });
   };
@@ -56,10 +63,12 @@ class Post extends Component {
   onSubmit = e => {
     e.preventDefault();
 
+    this.setState({ isButtonSaveDisabled: true });
+
     const id = this.state.post.id;
     const data = this.state.post;
 
-    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    fetch(`${config.apiHost}/posts/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
       headers: {
@@ -68,21 +77,34 @@ class Post extends Component {
     })
       .then(res => res.json())
       .then(() => {
-        this.setState({ editMode: false });
+        this.setState({
+          editMode: false,
+          isButtonSaveDisabled: false
+        });
         this.currentPost = { ...this.state.post };
       });
   };
 
   onDelete = () => {
-    /* fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-      method: "DELETE",
-      body: JSON.stringify(data),
+    const id = this.state.post.id;
+
+    this.setState({ isButtonDeleteDisabled: true });
+    
+    fetch(`${config.apiHost}/posts/${id}`, {
+      method: 'DELETE',
       headers: {
-        "content-type": "aplication/json"
+        'content-type': 'aplication/json'
       }
     })
       .then(res => res.json())
-      .then(() => this.setState({ editMode: false })); */
+      .then(() => {
+        this.props.onDelete(id);
+
+        this.setState({
+          isButtonDeleteDisabled: false,
+          editMode: false
+        });
+      });
   };
 
   onCancel = () => {
@@ -90,6 +112,7 @@ class Post extends Component {
       editMode: false,
       post: this.currentPost
     });
+    console.log('cancel');
   };
 
   render() {
@@ -98,7 +121,13 @@ class Post extends Component {
         {!this.state.editMode ? (
           <PostContent post={this.state.post} />
         ) : (
-          <PostEditForm post={this.state.post} onSubmit={this.onSubmit} />
+          <PostEditForm
+            post={this.state.post}
+            onSubmit={this.onSubmit}
+            onChange={this.onChange}
+            onCancel={this.onCancel}
+            isButtonSaveDisabled={this.state.isButtonSaveDisabled}
+          />
         )}
 
         {!this.state.editMode && (
@@ -107,12 +136,14 @@ class Post extends Component {
               Edit
             </button>
             <button
+              disabled={this.state.isButtonDeleteDisabled}
               onClick={this.onDelete}
               className="post-button post-button-danger"
             >
               Delete
             </button>
             <button
+              disabled={this.state.isButtonCommentsDisabled}
               onClick={this.toggleComments}
               className="post-button post-button-comments"
             >
@@ -124,7 +155,7 @@ class Post extends Component {
         {this.state.showComments && (
           <Comments
             postId={this.state.post.id}
-            commentsDidMount={this.uptateCommentsButton}
+            commentsDidMount={this.updateCommentsButton}
           />
         )}
       </article>

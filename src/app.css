@@ -41,8 +41,6 @@
   border-color: #a9dcba;
 }
 
-.post-edit-form {}
-
 .post-edit-form-title,
 .post-edit-form-body {
   display: block;
@@ -53,8 +51,6 @@
 .post-edit-form-title {
   text-transform: uppercase;
 }
-
-.post-edit-form {}
 
 .comment-box {
   padding: 8px;

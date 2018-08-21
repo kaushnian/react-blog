@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import config from '../config';
 import Comment from './comment';
 
 class Comments extends Component {
@@ -10,9 +12,9 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    fetch(
-      `https://jsonplaceholder.typicode.com/posts/${this.props.postId}/comments`
-    )
+    const id = this.props.postId;
+
+    fetch(`${config.apiHost}/posts/${id}/comments`)
       .then(res => res.json())
       .then(data => {
         this.setState({ comments: data });
