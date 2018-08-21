@@ -1,0 +1,52 @@
+.app {
+  margin: 20px auto;
+  width: 960px;
+}
+
+.post-article {
+  margin: 0 0 48px;
+}
+
+.post-title {
+  font-weight: normal;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.post-controls {
+  display: flex;
+  margin: 0 0 16px;
+}
+
+.post-button {
+  background-color: #9abee9;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 2px 16px 0 16px;
+  border-radius: 3px;
+  border: 1px solid #7da8d9;
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.3);
+  margin: 0 16px 0 0;
+}
+
+.post-button-delete {
+  background-color: #fcc7c9;
+  border-color: #efa0a6;
+}
+
+.post-button-comments {
+  margin: 0 0 0 auto;
+  background-color: #d1efd2;
+  border-color: #a9dcba;
+}
+
+.comment-box {
+  padding: 8px;
+  margin: 0 0 8px 16px;
+  background: #fff;
+}
+
+.comment-box h3 {
+  font-size: 16px;
+}
