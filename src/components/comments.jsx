@@ -17,16 +17,15 @@ class Comments extends Component {
     fetch(`${config.apiHost}/posts/${id}/comments`)
       .then(res => res.json())
       .then(data => {
-        this.setState({ comments: data });
+        this.setState({ comments: data.slice(0, config.maxComments) });
         this.props.commentsDidMount();
       });
   }
 
   render() {
-    const maxComments = 10;
     return (
       <React.Fragment>
-        {this.state.comments.slice(0, maxComments).map(comment => (
+        {this.state.comments.map(comment => (
           <Comment key={comment.id} comment={comment} />
         ))}
       </React.Fragment>

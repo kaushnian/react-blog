@@ -13,11 +13,9 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    const maxPosts = 20;
-
     fetch(`${config.apiHost}/posts`)
       .then(res => res.json())
-      .then(posts => this.setState({ posts: posts.slice(0, maxPosts) }));
+      .then(posts => this.setState({ posts: posts.slice(0, config.maxPosts) }));
   }
 
   onDelete = id => {

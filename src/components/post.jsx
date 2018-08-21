@@ -89,7 +89,7 @@ class Post extends Component {
     const id = this.state.post.id;
 
     this.setState({ isButtonDeleteDisabled: true });
-    
+
     fetch(`${config.apiHost}/posts/${id}`, {
       method: 'DELETE',
       headers: {
@@ -112,7 +112,6 @@ class Post extends Component {
       editMode: false,
       post: this.currentPost
     });
-    console.log('cancel');
   };
 
   render() {
